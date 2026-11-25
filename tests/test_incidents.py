@@ -84,3 +84,12 @@ def test_supprimer_incident(tmp_path):
     response = client.get("/")
 
     assert b"Incident a supprimer" not in response.data
+
+
+def test_incident_introuvable(tmp_path):
+    app = create_test_app(tmp_path)
+    client = app.test_client()
+
+    response = client.get("/incident/999")
+
+    assert response.status_code == 404
