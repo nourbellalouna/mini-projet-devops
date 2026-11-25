@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des incidents</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Gestion des incidents informatiques</h1>
+        <p>Suivi des incidents de l'établissement</p>
+    </header>
+
+    <main class="container">
+
+        <div class="top-section">
+            <h2>Liste des incidents</h2>
+            <a href="{{ url_for('ajouter') }}" class="btn btn-primary">
+                + Ajouter un incident
+            </a>
+        </div>
+
+        {% if incidents %}
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Titre</th>
+                            <th>Lieu</th>
+                            <th>Priorité</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for incident in incidents %}
+                        <tr>
+                            <td>{{ incident.id }}</td>
+                            <td>{{ incident.titre }}</td>
+                            <td>{{ incident.lieu }}</td>
+                            <td>{{ incident.priorite }}</td>
+                            <td>
+                                <span class="status">{{ incident.statut }}</span>
+                            </td>
+                            <td class="actions">
+                                <a href="{{ url_for('details', id=incident.id) }}"
+                                   class="btn btn-details">
+                                    Détails
+                                </a>
+
+                                <form action="{{ url_for('supprimer', id=incident.id) }}"
+                                      method="POST"
+                                      onsubmit="return confirm('Voulez-vous vraiment supprimer cet incident ?');">
+                                    <button type="submit" class="btn btn-delete">
+                                        Supprimer
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="empty-message">
+                <p>Aucun incident n'a été enregistré.</p>
+                <p>Cliquez sur « Ajouter un incident » pour commencer.</p>
+            </div>
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

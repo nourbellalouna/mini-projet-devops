@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de l'incident</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>Gestion des incidents informatiques</h1>
+        <p>Consulter et suivre un incident</p>
+    </header>
+
+    <main class="container">
+
+        <div class="form-container">
+            <h2>Détails de l'incident</h2>
+
+            <div class="detail-group">
+                <span>Identifiant</span>
+                <strong>#{{ incident.id }}</strong>
+            </div>
+
+            <div class="detail-group">
+                <span>Titre</span>
+                <strong>{{ incident.titre }}</strong>
+            </div>
+
+            <div class="detail-group">
+                <span>Description</span>
+                <strong>{{ incident.description }}</strong>
+            </div>
+
+            <div class="detail-group">
+                <span>Lieu</span>
+                <strong>{{ incident.lieu }}</strong>
+            </div>
+
+            <div class="detail-group">
+                <span>Priorité</span>
+                <strong>{{ incident.priorite }}</strong>
+            </div>
+
+            <div class="detail-group">
+                <span>Statut actuel</span>
+                <strong>{{ incident.statut }}</strong>
+            </div>
+
+            <div class="divider"></div>
+
+            <h3>Modifier le statut</h3>
+
+            <form method="POST"
+                  action="{{ url_for('modifier', id=incident.id) }}">
+
+                <div class="form-group">
+                    <label for="statut">Nouveau statut</label>
+
+                    <select id="statut" name="statut" required>
+                        <option value="Nouveau"
+                            {% if incident.statut == 'Nouveau' %}selected{% endif %}>
+                            Nouveau
+                        </option>
+
+                        <option value="En cours"
+                            {% if incident.statut == 'En cours' %}selected{% endif %}>
+                            En cours
+                        </option>
+
+                        <option value="Résolu"
+                            {% if incident.statut == 'Résolu' %}selected{% endif %}>
+                            Résolu
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        Enregistrer le statut
+                    </button>
+
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">
+                        Retour à la liste
+                    </a>
+                </div>
+
+            </form>
+        </div>
+
+    </main>
+
+</body>
+</html>
