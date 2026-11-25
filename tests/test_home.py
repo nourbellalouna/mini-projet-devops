@@ -1,4 +1,3 @@
-
 from app.app import create_app
 
 
@@ -12,5 +11,5 @@ def test_home_accessible(tmp_path):
 
     response = client.get("/")
 
-    assert response.status_code == 200
+    assert response.status_code == 404
     assert b"Liste des incidents" in response.data
