@@ -1,3 +1,4 @@
+
 import os
 import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, g, abort
@@ -7,7 +8,10 @@ def create_app(test_config=None):
     app = Flask(__name__)
 
     app.config.from_mapping(
-        DATABASE=os.path.join(app.root_path, "incidents.db")
+        DATABASE=os.environ.get(
+            "DATABASE",
+            os.path.join(app.root_path, "incidents.db")
+        )
     )
 
     if test_config is not None:
