@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,7 +17,7 @@
     <main class="container">
 
         <div class="top-section">
-            <h2>Liste des incidents</h2>
+            <h2>Liste des incidents ({{ incidents|length }})</h2>
             <a href="{{ url_for('ajouter') }}" class="btn btn-primary">
                 + Ajouter un incident
             </a>
