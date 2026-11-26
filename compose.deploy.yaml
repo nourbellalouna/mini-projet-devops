@@ -1,0 +1,15 @@
+
+services:
+  web:
+    image: ghcr.io/nourbellalouna/mini-projet-devops:latest
+    container_name: incidents-deploy
+    ports:
+      - "5000:5000"
+    environment:
+      DATABASE: /data/incidents.db
+    volumes:
+      - incidents_data:/data
+    restart: unless-stopped
+
+volumes:
+  incidents_data:
